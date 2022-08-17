@@ -45,8 +45,8 @@ public class EmployeeController {
     // localhost:8080/employees?id=34
     // we can check if worked in postman
     @DeleteMapping("/employees")
-    public String deleteEmployee(@RequestParam("id") Long id){ // "id" - var name in url
-        return "Deleting the employee by id " + id;
+    public void deleteEmployee(@RequestParam("id") Long id){ // "id" - var name in url
+        eService.deleteEmployee(id);
     }
 
 }
