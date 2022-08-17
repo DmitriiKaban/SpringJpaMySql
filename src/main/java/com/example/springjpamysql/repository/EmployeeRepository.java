@@ -16,4 +16,7 @@ import java.util.List;
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> { // Long - pk type
 
     List<Employee> findByDepartmentName(String name);
+
+    @Query("FROM Employee WHERE department.name = :name")
+    List<Employee> getEmployeesByDeptName(String name);
 }

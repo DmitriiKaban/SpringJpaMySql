@@ -75,7 +75,8 @@ public class EmployeeController {
 
     @GetMapping("/employees/filter/{name}")
     public ResponseEntity<List<Employee>> getEmployeesByDepartment(@PathVariable String name){
-        return new ResponseEntity<>(eRepo.findByDepartmentName(name), HttpStatus.OK);
+        //return new ResponseEntity<>(eRepo.findByDepartmentName(name), HttpStatus.OK);
+        return new ResponseEntity<>(eRepo.getEmployeesByDeptName(name), HttpStatus.OK);
     }
 
 }
