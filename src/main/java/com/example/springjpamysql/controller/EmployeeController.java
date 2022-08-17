@@ -1,6 +1,7 @@
 package com.example.springjpamysql.controller;
 
 import com.example.springjpamysql.model.Employee;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,17 @@ import org.springframework.web.bind.annotation.*;
 // handles the http request
 @RestController
 public class EmployeeController {
+
+    // values from application.properties
+    @Value("${app.name}")
+    private String appName;
+    @Value("${app.version}")
+    private String appVersion;
+
+    @GetMapping("/version")
+    public String getAppDetails(){
+        return appName + " - " + appVersion;
+    }
 
     // localhost:8080/employees
     @GetMapping("/employees")
