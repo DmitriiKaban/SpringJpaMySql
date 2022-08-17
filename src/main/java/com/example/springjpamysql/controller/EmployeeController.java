@@ -23,8 +23,8 @@ public class EmployeeController {
 
     // localhost:8080/employees
     @GetMapping("/employees")
-    public ResponseEntity<List<Employee>> getEmployees(){
-        return new ResponseEntity<>(eService.getEmployees(), HttpStatus.OK);
+    public ResponseEntity<List<Employee>> getEmployees(@RequestParam int pageNumber, @RequestParam int pageSize){
+        return new ResponseEntity<>(eService.getEmployees(pageNumber, pageSize), HttpStatus.OK);
     }
 
     // localhost:8080/employees/73
