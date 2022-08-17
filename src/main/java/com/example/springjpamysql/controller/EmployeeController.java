@@ -12,22 +12,12 @@ import java.util.List;
 
 // handles the http request
 @RestController
-public class EmployeeController {
+//@RequestMapping("/api/v1") // localhost:8080/api/v1/employees
 
+public class EmployeeController {
     @Autowired
     private EmployeeService eService; // as soon as project starts the object will be injected
 
-
-    // values from application.properties
-    @Value("${app.name}") // ("${app.name: Employee Management Application}") - we can edit project's name in this way, not using application.properties
-    private String appName;
-    @Value("${app.version}")
-    private String appVersion;
-
-    @GetMapping("/version")
-    public String getAppDetails(){
-        return appName + " - " + appVersion;
-    }
 
     // localhost:8080/employees
     @GetMapping("/employees")
