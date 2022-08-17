@@ -2,6 +2,7 @@ package com.example.springjpamysql.model;
 
 import com.example.springjpamysql.request.EmployeeRequest;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +19,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "tbl_employee")
+@NoArgsConstructor
 public class Employee {
 
     @Id

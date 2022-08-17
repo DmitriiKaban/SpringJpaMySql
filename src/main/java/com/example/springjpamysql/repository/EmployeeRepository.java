@@ -15,4 +15,5 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> { // Long - pk type
 
+    List<Employee> findByDepartmentName(String name);
 }
