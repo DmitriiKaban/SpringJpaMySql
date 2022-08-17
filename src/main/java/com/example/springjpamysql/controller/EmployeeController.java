@@ -1,5 +1,6 @@
 package com.example.springjpamysql.controller;
 
+import com.example.springjpamysql.model.Employee;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,12 @@ public class EmployeeController {
     @GetMapping("/employees/{id}")
     public String getEmployee(@PathVariable Long id){
         return "Fetching the employee details for the id " + id;
+    }
+
+    // Handler method, receives Employee details
+    @PostMapping("employees")
+    public String saveEmployee(@RequestBody Employee employee){
+        return "Saving the employee details to the DB " + employee;
     }
 
     // localhost:8080/employees?id=34
