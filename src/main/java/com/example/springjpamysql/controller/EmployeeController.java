@@ -36,6 +36,7 @@ public class EmployeeController {
         return eService.saveEmployee(employee);
     }
 
+    // localhost:8080/employees/33
     @PutMapping("/employees/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         employee.setId(id);
