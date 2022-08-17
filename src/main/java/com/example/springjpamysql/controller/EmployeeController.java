@@ -1,14 +1,22 @@
 package com.example.springjpamysql.controller;
 
 import com.example.springjpamysql.model.Employee;
+import com.example.springjpamysql.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // handles the http request
 @RestController
 public class EmployeeController {
+
+    @Autowired
+    private EmployeeService eService; // as soon as project starts the object will be injected
+
 
     // values from application.properties
     @Value("${app.name}") // ("${app.name: Employee Management Application}") - we can edit project's name in this way, not using application.properties
@@ -23,8 +31,8 @@ public class EmployeeController {
 
     // localhost:8080/employees
     @GetMapping("/employees")
-    public String getEmployees(){
-        return "displaying list of employees";
+    public List<Employee> getEmployees(){
+        return eService.getEmployees();
     }
 
     // localhost:8080/employees/73
