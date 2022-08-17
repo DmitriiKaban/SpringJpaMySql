@@ -5,6 +5,8 @@ import com.example.springjpamysql.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,35 +23,35 @@ public class EmployeeController {
 
     // localhost:8080/employees
     @GetMapping("/employees")
-    public List<Employee> getEmployees(){
-        return eService.getEmployees();
+    public ResponseEntity<List<Employee>> getEmployees(){
+        return new ResponseEntity<>(eService.getEmployees(), HttpStatus.OK);
     }
 
     // localhost:8080/employees/73
     @GetMapping("/employees/{id}")
-    public Employee getEmployee(@PathVariable Long id){
-        return eService.getSingleEmployee(id);
+    public ResponseEntity<Employee> getEmployee(@PathVariable Long id){
+        return new ResponseEntity<>(eService.getSingleEmployee(id), HttpStatus.OK);
     }
 
     // Handler method, receives Employee details
     // @Valid checks if selected in Entity props are validated and throws exception
     @PostMapping("employees")
-    public Employee saveEmployee(@Valid @RequestBody Employee employee){
-        return eService.saveEmployee(employee);
+    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee){
+        return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.CREATED);
     }
 
     // localhost:8080/employees/33
     @PutMapping("/employees/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         employee.setId(id);
-        return eService.updateEmployee(employee);
+        return new ResponseEntity<>(eService.updateEmployee(employee), HttpStatus.OK);
     }
 
     // localhost:8080/employees?id=34
     // we can check if worked in postman
     @DeleteMapping("/employees")
-    public void deleteEmployee(@RequestParam("id") Long id){ // "id" - var name in url
-        eService.deleteEmployee(id);
+    public ResponseEntity<HttpStatus> deleteEmployee(@RequestParam("id") Long id){ // "id" - var name in url
+       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
