@@ -27,6 +27,12 @@ public class EmployeeController {
         return "Saving the employee details to the DB " + employee;
     }
 
+    @PutMapping("/employees/{id}")
+    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
+        System.out.println("updating the employee data for the id " + id);
+        return employee;
+    }
+
     // localhost:8080/employees?id=34
     // we can check if worked in postman
     @DeleteMapping("/employees")
