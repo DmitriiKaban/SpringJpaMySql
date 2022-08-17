@@ -1,15 +1,13 @@
 package com.example.springjpamysql.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
+import java.util.Date;
 
-// annotations generate getters/setters
 @Setter
 @Getter
 @ToString
@@ -37,4 +35,11 @@ public class Employee {
     @Column(name="department")
     private String department;
 
+    @CreationTimestamp
+    @Column(name="created_at", nullable = false, updatable = false)
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name="updated_at")
+    private Date updateAt;
 }
