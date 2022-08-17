@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 // handles the http request
@@ -31,8 +32,9 @@ public class EmployeeController {
     }
 
     // Handler method, receives Employee details
+    // @Valid checks if selected in Entity props are validated
     @PostMapping("employees")
-    public Employee saveEmployee(@RequestBody Employee employee){
+    public Employee saveEmployee(@Valid @RequestBody Employee employee){
         return eService.saveEmployee(employee);
     }
 
