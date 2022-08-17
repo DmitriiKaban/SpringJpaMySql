@@ -54,4 +54,9 @@ public class EmployeeController {
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/employees/filterByName")
+    public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam String name){
+        return new ResponseEntity<>(eService.getEmployeesByName(name), HttpStatus.OK);
+    }
+
 }
