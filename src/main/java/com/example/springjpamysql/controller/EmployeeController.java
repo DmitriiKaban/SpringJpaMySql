@@ -38,8 +38,8 @@ public class EmployeeController {
 
     @PutMapping("/employees/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
-        System.out.println("updating the employee data for the id " + id);
-        return employee;
+        employee.setId(id);
+        return eService.updateEmployee(employee);
     }
 
     // localhost:8080/employees?id=34
