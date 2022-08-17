@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     // Handler method, receives Employee details
-    // @Valid checks if selected in Entity props are validated
+    // @Valid checks if selected in Entity props are validated and throws exception
     @PostMapping("employees")
     public Employee saveEmployee(@Valid @RequestBody Employee employee){
         return eService.saveEmployee(employee);
