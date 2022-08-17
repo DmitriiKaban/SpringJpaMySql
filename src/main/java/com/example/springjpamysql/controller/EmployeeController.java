@@ -32,8 +32,8 @@ public class EmployeeController {
 
     // Handler method, receives Employee details
     @PostMapping("employees")
-    public String saveEmployee(@RequestBody Employee employee){
-        return "Saving the employee details to the DB " + employee;
+    public Employee saveEmployee(@RequestBody Employee employee){
+        return eService.saveEmployee(employee);
     }
 
     @PutMapping("/employees/{id}")

@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
-
     @Autowired
     private EmployeeRepository eRepository;
+
     @Override
     public List<Employee> getEmployees() {
         return eRepository.findAll();
+    }
+
+    @Override
+    public Employee saveEmployee(Employee employee) {
+        return eRepository.save(employee);
     }
 }
