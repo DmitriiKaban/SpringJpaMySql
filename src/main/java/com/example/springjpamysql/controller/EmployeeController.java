@@ -59,4 +59,9 @@ public class EmployeeController {
         return new ResponseEntity<>(eService.getEmployeesByName(name), HttpStatus.OK);
     }
 
+    @GetMapping("/employees/filterByNameAndLocation")
+    public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam String name, @RequestParam String location){
+        return new ResponseEntity<>(eService.getEmployeesByNameAndLocation(name, location), HttpStatus.OK);
+    }
+
 }
