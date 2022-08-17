@@ -18,7 +18,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService eService; // as soon as project starts the object will be injected
 
-
     // localhost:8080/employees
     @GetMapping("/employees")
     public List<Employee> getEmployees(){
