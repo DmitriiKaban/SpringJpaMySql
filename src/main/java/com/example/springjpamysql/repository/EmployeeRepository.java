@@ -11,8 +11,12 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> { // Long - pk type
 
     // spring will create query automatically
-    // SELECT * FROM tbl_employee WHERE name="name"
+    // SELECT * FROM tbl_employee WHERE name="name";
     List<Employee> findByName(String name);
 
     List<Employee> findByNameAndLocation(String name, String location);
+
+    // SELECT * FROM tbl_employee WHERE name like "%ram%";
+    List<Employee>findByNameContaining(String keyword);
+
 }

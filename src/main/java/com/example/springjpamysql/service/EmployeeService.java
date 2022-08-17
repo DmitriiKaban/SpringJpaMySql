@@ -18,4 +18,6 @@ public interface EmployeeService {
     List<Employee> getEmployeesByName(String name);
 
     List<Employee> getEmployeesByNameAndLocation(String name, String location);
+
+    List<Employee> getEmployeesByKeyWord(String name);
 }
