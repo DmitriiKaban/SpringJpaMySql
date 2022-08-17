@@ -1,5 +1,6 @@
 package com.example.springjpamysql.model;
 
+import com.example.springjpamysql.request.EmployeeRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,27 +24,14 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @NotNull - passes ""
-    // @NotEmpty - passes " "
-    // @NotBlank - passes only "dsffsd"
-    @NotBlank(message = "Name should not be null")
     private String name;
 
-    private Long age = 0L; // default value
+    @JoinColumn(name = "department_id")
+    @OneToOne
+    private Department department;
 
-    private String location;
 
-    @Email(message = "Please enter the valid email address")
-    private String email;
-
-    @NotBlank(message = "Department should not be null")
-    private String department;
-
-    @CreationTimestamp
-    @Column(name="created_at", nullable = false, updatable = false)
-    private Date createdAt;
-
-    @UpdateTimestamp
-    @Column(name="updated_at")
-    private Date updateAt;
+    public Employee(EmployeeRequest request) {
+        this.name = request.getName();
+    }
 }

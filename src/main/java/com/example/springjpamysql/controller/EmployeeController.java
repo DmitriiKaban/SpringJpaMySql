@@ -1,6 +1,10 @@
 package com.example.springjpamysql.controller;
 
+import com.example.springjpamysql.model.Department;
 import com.example.springjpamysql.model.Employee;
+import com.example.springjpamysql.repository.DepartmentRepository;
+import com.example.springjpamysql.repository.EmployeeRepository;
+import com.example.springjpamysql.request.EmployeeRequest;
 import com.example.springjpamysql.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +25,11 @@ public class EmployeeController {
     @Autowired
     private EmployeeService eService; // as soon as project starts the object will be injected
 
+    @Autowired
+    private EmployeeRepository eRepo;
+    @Autowired
+    private DepartmentRepository dRepo;
+
     // localhost:8080/employees
     @GetMapping("/employees")
     public ResponseEntity<List<Employee>> getEmployees(@RequestParam int pageNumber, @RequestParam int pageSize){
@@ -36,8 +45,18 @@ public class EmployeeController {
     // Handler method, receives Employee details
     // @Valid checks if selected in Entity props are validated and throws exception
     @PostMapping("employees")
-    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee){
-        return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.CREATED);
+    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody EmployeeRequest eRequest){
+        Department dept = new Department();
+        dept.setName(eRequest.getDepartment());
+
+        dept = dRepo.save(dept);
+
+        Employee employee = new Employee(eRequest);
+        employee.setDepartment(dept);
+
+        eRepo.save(employee);
+
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     // localhost:8080/employees/33
@@ -54,24 +73,5 @@ public class EmployeeController {
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/employees/filterByName")
-    public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam String name){
-        return new ResponseEntity<>(eService.getEmployeesByName(name), HttpStatus.OK);
-    }
-
-    @GetMapping("/employees/filterByNameAndLocation")
-    public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam String name, @RequestParam String location){
-        return new ResponseEntity<>(eService.getEmployeesByNameAndLocation(name, location), HttpStatus.OK);
-    }
-
-    @GetMapping("/employees/filterByKeyword")
-    public ResponseEntity<List<Employee>> getEmployeesByKeyword(@RequestParam String name){
-        return new ResponseEntity<>(eService.getEmployeesByKeyWord(name), HttpStatus.OK);
-    }
-
-    @GetMapping("/employees/{name}/{location}")
-    public ResponseEntity<List<Employee>> getEmployeesByNameOrLocation(@PathVariable String name, @PathVariable String location){
-        return new ResponseEntity<>(eService.getEmployeesByNameOrLocation(name, location), HttpStatus.OK);
-    }
 
 }
