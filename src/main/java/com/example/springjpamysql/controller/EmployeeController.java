@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     // values from application.properties
-    @Value("${app.name}")
+    @Value("${app.name}") // ("${app.name: Employee Management Application}") - we can edit project's name in this way, not using application.properties
     private String appName;
     @Value("${app.version}")
     private String appVersion;
