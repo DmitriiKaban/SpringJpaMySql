@@ -19,6 +19,7 @@ import java.util.List;
 
 // handles the http request
 @RestController
+
 //@RequestMapping("/api/v1") // localhost:8080/api/v1/employees
 
 public class EmployeeController {
@@ -45,18 +46,19 @@ public class EmployeeController {
     // Handler method, receives Employee details
     // @Valid checks if selected in Entity props are validated and throws exception
     @PostMapping("employees")
-    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody EmployeeRequest eRequest){
-        Department dept = new Department();
-        dept.setName(eRequest.getDepartment());
-
-        dept = dRepo.save(dept);
+    public ResponseEntity<String> saveEmployee(@Valid @RequestBody EmployeeRequest eRequest){
 
         Employee employee = new Employee(eRequest);
-        employee.setDepartment(dept);
+        employee = eRepo.save(employee);
 
-        eRepo.save(employee);
+        for(String s : eRequest.getDepartment()){
+            Department d = new Department();
+            d.setName(s);
+            d.setEmployee(employee);
 
-        return new ResponseEntity<>(employee, HttpStatus.CREATED);
+            dRepo.save(d);
+        }
+        return new ResponseEntity<>("Record saved successfully", HttpStatus.CREATED);
     }
 
     // localhost:8080/employees/33
@@ -71,12 +73,6 @@ public class EmployeeController {
     @DeleteMapping("/employees")
     public ResponseEntity<HttpStatus> deleteEmployee(@RequestParam("id") Long id){ // "id" - var name in url
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("/employees/filter/{name}")
-    public ResponseEntity<List<Employee>> getEmployeesByDepartment(@PathVariable String name){
-        //return new ResponseEntity<>(eRepo.findByDepartmentName(name), HttpStatus.OK);
-        return new ResponseEntity<>(eRepo.getEmployeesByDeptName(name), HttpStatus.OK);
     }
 
 }
